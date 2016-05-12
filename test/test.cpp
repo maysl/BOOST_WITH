@@ -14,6 +14,11 @@ private:
 
 using Lock_guard = std::lock_guard<Dummy_lock>;
 
+std::unique_lock<Dummy_lock> make_lock() {
+    static Dummy_lock l;
+    return std::unique_lock<Dummy_lock>(l);
+}
+
 class Copyable {
 public:
     Copyable(int, int) {}
@@ -70,4 +75,9 @@ TEST(BoostWith, Nesting) {
     BOOST_WITH (Lock_guard, l1)
         for (auto i = 0; i < 2; ++i)
             EXPECT_TRUE(l1.locked());
+}
+
+TEST(BoostWith, Factory) {
+    BOOST_WITH(decltype(make_lock()), make_lock())
+        assert(true);
 }

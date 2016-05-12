@@ -1,6 +1,6 @@
 # BOOST_WITH
 
-## C++ Macro enabling Python-style 'with' scopes
+## C++ Macro enabling intuitive RAII
 
 ### Disclaimer: NOT PART OF BOOST
 
@@ -10,11 +10,11 @@ Example: scoped locking, the intuitive way
 #include <boost/with.hpp>
 #include <mutex>
 
-using Lock = std::unique_lock<std::mutex>;
+using Lock = std::lock_guard<std::mutex>;
 
 int main() {
     std::mutex the_mutex;
-    BOOST_WITH(Lock(the_mutex)) {
+    BOOST_WITH(Lock, the_mutex) {
         // the_mutex locked
         do_something();
         do_other_thing();
@@ -25,6 +25,7 @@ int main() {
 Example: OpenGL push/pop
 ``` cpp
 #include <GL/gl.h>
+#include <boost/with.hpp>
 
 struct Pushed_matrix {
     Pushed_matrix() { glPushMatrix(); }
@@ -32,7 +33,7 @@ struct Pushed_matrix {
 };
 
 int main() {
-    BOOST_WITH(Pushed_matrix())
+    BOOST_WITH(Pushed_matrix)
         draw_something();
 }
 ```
