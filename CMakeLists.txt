@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(boost_with)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wunused -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wunused -Werror")
 set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -std=c++14")
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "RelWithDebInfo")
