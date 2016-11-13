@@ -2,8 +2,6 @@
 #define BOOST_WITH_HPP_INCLUDED
 
 #include <utility>
-#include <cassert>
-#include <type_traits>
 
 #define BOOST_WITH(T, ...)                                                     \
     if (boost::with_detail::always_false<T> boost_with_intentionally_unused    \
