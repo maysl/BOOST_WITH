@@ -6,7 +6,7 @@
 #define BOOST_WITH(T, ...)                                                     \
     if (boost::with_detail::always_false<T> boost_with_intentionally_unused    \
         = {__VA_ARGS__}) {                                                     \
-        (void) boost_with_intentionally_unused;                                \
+        static_cast<void>(boost_with_intentionally_unused);                    \
     } else
 
 
