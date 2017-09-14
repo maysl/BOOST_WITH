@@ -1,5 +1,6 @@
-#include <gtest/gtest.h>
 #include "boost/with.hpp"
+#include <boost/config.hpp>
+#include <gtest/gtest.h>
 #include <mutex>
 
 class Dummy_lock {
@@ -75,6 +76,22 @@ TEST(BoostWith, Nesting) {
     BOOST_WITH (Lock_guard, l1)
         for (auto i = 0; i < 2; ++i)
             EXPECT_TRUE(l1.locked());
+}
+
+BOOST_NOINLINE void dangling_else(int n) {
+    Dummy_lock l;
+
+    if (n % 2)
+        EXPECT_FALSE(l.locked());
+    else if (n % 3)
+        BOOST_WITH(Lock_guard, l)
+            EXPECT_TRUE(l.locked());
+}
+
+TEST(BoostWith, DanglingElse) {
+    dangling_else(1);
+    dangling_else(2);
+    dangling_else(6);
 }
 
 TEST(BoostWith, Factory) {

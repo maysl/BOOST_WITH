@@ -4,10 +4,13 @@
 #include <utility>
 
 #define BOOST_WITH(T, ...)                                                     \
-    if (boost::with_detail::always_false<T> boost_with_intentionally_unused    \
-        = {__VA_ARGS__}) {                                                     \
-        static_cast<void>(boost_with_intentionally_unused);                    \
-    } else
+    switch (0)                                                                 \
+    default:                                                                   \
+        if (boost::with_detail::always_false<T>                                \
+                boost_with_intentionally_unused                                \
+            = {__VA_ARGS__}) {                                                 \
+            static_cast<void>(boost_with_intentionally_unused);                \
+        } else
 
 
 namespace boost {
